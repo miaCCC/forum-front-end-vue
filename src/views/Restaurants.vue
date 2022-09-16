@@ -3,7 +3,7 @@
      <!-- 使用 NavTabs 元件 -->
     <NavTabs />
      <!-- 餐廳類別標籤 RestaurantsNavPills -->
-
+     <RestaurantsNavPills :categories="categories"/>
     <div class="row">
       <!-- 餐廳卡片 RestaurantCard-->
       <!--v-for渲染、v-bind綁定在子元件props取值-->
@@ -20,6 +20,7 @@
 <script>
 import NavTabs from './../components/NavTabs'
 import RestaurantCard from './../components/RestaurantCard'
+import RestaurantsNavPills from './../components/RestaurantsNavPills'
 
 const dummyData = {
     "restaurants": [
@@ -295,6 +296,7 @@ export default {
   components: {
     NavTabs, //簡寫
     RestaurantCard,
+    RestaurantsNavPills
   },
   //data函式定義要用到的資料
   data () {
