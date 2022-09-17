@@ -68,6 +68,8 @@
 </template>
 
 <script>
+
+
 export default {
   //父元件用v-bind取值
   props: {
