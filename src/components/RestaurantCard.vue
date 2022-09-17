@@ -7,12 +7,18 @@
         alt="Card image cap"
         width="286px"
         height="180px"
-      >
+      />
       <div class="card-body">
         <p class="card-text title-wrap">
-          <a href="#">{{ restaurant.name }}</a>
+          <router-link
+            :to="{ name: 'restaurant', params: { id: restaurant.id } }"
+            >{{ restaurant.name }}
+          </router-link>
+          <span class="badge badge-secondary">{{
+            restaurant.Category.name
+          }}</span>
         </p>
-        <span class="badge badge-secondary">{{ restaurant.Category.name }}</span>
+
         <p class="card-text text-truncate">
           {{ restaurant.description }}
         </p>
@@ -46,7 +52,7 @@
           v-else
           type="button"
           class="btn btn-primary like mr-2"
-          @click.stop.prevent="addLike"      
+          @click.stop.prevent="addLike"
         >
           Like
         </button>
@@ -57,45 +63,44 @@
 
 <script>
 export default {
-   //父元件用v-ind取值
+  //父元件用v-ind取值
   props: {
     initialRestaurant: {
       type: Object,
-      required: true
-    }
+      required: true,
+    },
   },
-  data () {
+  data() {
     return {
       //從initialRestaurant拿取資料給restaurant
-      restaurant: this.initialRestaurant
-    }
+      restaurant: this.initialRestaurant,
+    };
   },
-    methods: {
-    addFavorite () {
+  methods: {
+    addFavorite() {
       this.restaurant = {
         ...this.restaurant, //保留餐廳內原有資料
-        isFavorited: true
-      }
+        isFavorited: true,
+      };
     },
-    deleteFavorite () {
+    deleteFavorite() {
       this.restaurant = {
         ...this.restaurant, //保留餐廳內原有資料
-        isFavorited: false
-      }
+        isFavorited: false,
+      };
     },
-    addLike () {
+    addLike() {
       this.restaurant = {
         ...this.restaurant,
-        isLiked: true
-      }
+        isLiked: true,
+      };
     },
-    deleteLike () {
+    deleteLike() {
       this.restaurant = {
         ...this.restaurant,
-        isLiked: false
-      }
-    }
-  }
-  }
-
+        isLiked: false,
+      };
+    },
+  },
+};
 </script>
