@@ -40,7 +40,7 @@
 </template>
 
 <script>
-
+import NavTabs from './../components/NavTabs'
 const dummyData = {
     'users': [
         {
@@ -86,7 +86,9 @@ const dummyData = {
 }
 
 export default {
-  
+  components: {
+    NavTabs //簡寫
+  },
   data () {
     return {
       users: dummyData.users,
