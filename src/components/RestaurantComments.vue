@@ -17,9 +17,9 @@
           Delete
         </button>
         <h3>
-          <a href="#">
+          <router-link to="/users/1">
             {{ comment.User.name }}
-          </a>
+          </router-link>
         </h3>
         <p>{{ comment.text }}</p>
         <footer class="blockquote-footer">

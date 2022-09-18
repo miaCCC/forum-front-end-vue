@@ -5,13 +5,13 @@
     <hr />
     <div class="row text-center">
       <div class="col-3" v-for="user in users" :key="user.id">
-        <a href="#">
+        <router-link to="/users/1">
           <img
             :src="users.image ? users.image : 'https://ppt.cc/fi8Hjx@.jpg'"
             width="140px"
             height="140px"
           />
-        </a>
+        </router-link>
         <h2>{{ user.name }}</h2>
         <span class="badge badge-secondary"
           >追蹤人數 : {{ user.FollowerCount }}</span
