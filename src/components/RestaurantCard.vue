@@ -63,6 +63,7 @@
 
 <script>
 export default {
+  mixins: [emptyImageFilter],
   //父元件用v-ind取值
   props: {
     initialRestaurant: {

@@ -60,6 +60,7 @@
 <script>
 
 export default {
+  mixins: [emptyImageFilter],
   props: {
     initialRestaurant: {
       type: Array,
