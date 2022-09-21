@@ -22,7 +22,7 @@
 
 <script>
 export default {
-  mixins: [emptyImageFilter],
+  //mixins: [emptyImageFilter],
   props: {
     followings: {
       type: Array,

@@ -86,7 +86,7 @@ const dummyData = {
 }
 
 export default {
-  mixins: [emptyImageFilter],
+  //mixins: [emptyImageFilter],
   components: {
     NavTabs //簡寫
   },

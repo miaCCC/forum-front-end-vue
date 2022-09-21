@@ -62,7 +62,7 @@
 
 <script>
 export default {
-  mixins: [emptyImageFilter],
+  //mixins: [emptyImageFilter],
   props: {
     profile: {
       type: Object,

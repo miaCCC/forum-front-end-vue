@@ -17,7 +17,7 @@
 
 <script>
 export default {
-  mixins: [emptyImageFilter],
+  //mixins: [emptyImageFilter],
   props: {
     followers: {
       type: Array,

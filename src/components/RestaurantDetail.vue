@@ -78,7 +78,7 @@
 
 
 export default {
-  mixins: [emptyImageFilter],
+  //mixins: [emptyImageFilter],
   //父元件用v-bind取值
   props: {
     initialRestaurant: {

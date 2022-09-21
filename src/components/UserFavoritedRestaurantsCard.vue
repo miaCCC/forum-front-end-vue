@@ -19,7 +19,7 @@
 
 <script>
 export default {
-  mixins: [emptyImageFilter],
+  //mixins: [emptyImageFilter],
   props: {
     favoritedRestaurants: {
       type: Array,
