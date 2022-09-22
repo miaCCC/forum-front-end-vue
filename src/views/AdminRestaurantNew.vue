@@ -1,6 +1,7 @@
 <template>
   <div class="container py-5">
-    <AdminRestaurantForm @after-submit="handleAfterSubmit" />
+    <AdminRestaurantForm 
+     @after-submit="handleAfterSubmit" />
   </div>
 </template>
 

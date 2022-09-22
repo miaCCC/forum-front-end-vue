@@ -148,6 +148,20 @@ const dummyData = {
 }
 
 export default {
+  props: {
+    initialRestaurant: {
+      type: Object,
+      default: () => ({
+        name: '',
+        categoryId: '',
+        tel: '',
+        address: '',
+        description: '',
+        image: '',
+        openingHours: '',
+      })
+    }
+  },
   data () {
     return {
       restaurant: {
@@ -163,7 +177,11 @@ export default {
     }
   },
   created () {
-    this.fetchCategories()
+    this.fetchCategories()//取類別
+    this.restaurant = {
+      ...this.restaurant,//展開data裡的空白預設值
+      ...this.initialRestaurant//父層props資料，如果沒資料，就傳default空值
+    }
   },
   methods: {
     fetchCategories () {
@@ -184,8 +202,8 @@ export default {
 },
     handleSubmit (e) {
       const form = e.target  // <form></form>
-      const formData = new FormData(form)
-      this.$emit('after-submit', formData)
+      const formData = new FormData(form) //物件化
+      this.$emit('after-submit', formData)//傳入父層
     }
   }
 }
