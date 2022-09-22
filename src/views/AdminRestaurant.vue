@@ -87,7 +87,8 @@ export default {
     this.fetchRestaurant(restaurantId)
   },
   methods: {
-    fetchRestaurant () {
+    //eslint-disable-next-line
+    fetchRestaurant (restaurantId) {
       const { restaurant } = dummyData
       this.restaurant = {
         ...this.restaurant,
