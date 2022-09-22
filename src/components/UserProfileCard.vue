@@ -26,7 +26,7 @@
           </ul>
           <p>
             <router-link 
-             :to="{ name: 'users', params: { id: profile.id } }">
+             :to="{name: 'user-edit', params: {id: profile.id} }">
              <button
                v-if="isCurrentUser" 
                type="submit" 
