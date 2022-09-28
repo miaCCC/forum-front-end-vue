@@ -10,7 +10,7 @@ const routes = [
   {//根目錄主頁為餐廳列表
     path: '/',
     name: 'root',
-    redirect: '/restaurants'
+    redirect: '/signin'
   },
   {
     path: '/signin',
