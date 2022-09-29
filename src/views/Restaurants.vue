@@ -31,276 +31,9 @@ import NavTabs from './../components/NavTabs'
 import RestaurantCard from './../components/RestaurantCard'
 import RestaurantsNavPills from './../components/RestaurantsNavPills'
 import RestaurantsPagination from './../components/RestaurantsPagination'
+import restaurantsAPI from './../apis/restaurants'
+import { Toast } from './../utils/helpers'
 
-const dummyData = {
-    "restaurants": [
-        {
-            "id": 1,
-            "name": "Ruth Gleichner",
-            "tel": "(128) 410-3517",
-            "address": "06029 Funk Land",
-            "opening_hours": "08:00",
-            "description": "In qui mollitia sapiente.",
-            "image": "https://loremflickr.com/320/240/restaurant,food/?random=91.52122955001425",
-            "viewCounts": 0,
-            "createdAt": "2022-09-13T17:21:06.000Z",
-            "updatedAt": "2022-09-13T17:21:06.000Z",
-            "CategoryId": 3,
-            "Category": {
-                "id": 3,
-                "name": "義大利料理",
-                "createdAt": "2022-09-13T17:21:06.000Z",
-                "updatedAt": "2022-09-13T17:21:06.000Z"
-            },
-            "isFavorited": false,
-            "isLiked": false
-        },
-        {
-            "id": 2,
-            "name": "Karley Kuvalis",
-            "tel": "771.836.7482 x67538",
-            "address": "2817 Gleichner Shoal",
-            "opening_hours": "08:00",
-            "description": "Quae esse culpa voluptatem dignissimos asperiores ",
-            "image": "https://loremflickr.com/320/240/restaurant,food/?random=14.909044855516074",
-            "viewCounts": 0,
-            "createdAt": "2022-09-13T17:21:06.000Z",
-            "updatedAt": "2022-09-13T17:21:06.000Z",
-            "CategoryId": 1,
-            "Category": {
-                "id": 1,
-                "name": "中式料理",
-                "createdAt": "2022-09-13T17:21:06.000Z",
-                "updatedAt": "2022-09-13T17:21:06.000Z"
-            },
-            "isFavorited": false,
-            "isLiked": false
-        },
-        {
-            "id": 3,
-            "name": "Mrs. Christelle Bruen",
-            "tel": "415-643-1339 x059",
-            "address": "7662 Evert Rapid",
-            "opening_hours": "08:00",
-            "description": "Et est sequi voluptatem quis neque ipsum et.",
-            "image": "https://loremflickr.com/320/240/restaurant,food/?random=58.68349864490985",
-            "viewCounts": 0,
-            "createdAt": "2022-09-13T17:21:06.000Z",
-            "updatedAt": "2022-09-13T17:21:06.000Z",
-            "CategoryId": 1,
-            "Category": {
-                "id": 1,
-                "name": "中式料理",
-                "createdAt": "2022-09-13T17:21:06.000Z",
-                "updatedAt": "2022-09-13T17:21:06.000Z"
-            },
-            "isFavorited": false,
-            "isLiked": false
-        },
-        {
-            "id": 4,
-            "name": "Magnus Pollich",
-            "tel": "(953) 311-8175",
-            "address": "687 Mortimer Lane",
-            "opening_hours": "08:00",
-            "description": "Explicabo voluptatem dolor expedita quo modi volup",
-            "image": "https://loremflickr.com/320/240/restaurant,food/?random=50.416553590620296",
-            "viewCounts": 0,
-            "createdAt": "2022-09-13T17:21:06.000Z",
-            "updatedAt": "2022-09-13T17:21:06.000Z",
-            "CategoryId": 1,
-            "Category": {
-                "id": 1,
-                "name": "中式料理",
-                "createdAt": "2022-09-13T17:21:06.000Z",
-                "updatedAt": "2022-09-13T17:21:06.000Z"
-            },
-            "isFavorited": false,
-            "isLiked": false
-        },
-        {
-            "id": 5,
-            "name": "Devonte Witting",
-            "tel": "412-522-7642 x676",
-            "address": "199 Terry Mountain",
-            "opening_hours": "08:00",
-            "description": "alias",
-            "image": "https://loremflickr.com/320/240/restaurant,food/?random=22.762485644851395",
-            "viewCounts": 0,
-            "createdAt": "2022-09-13T17:21:06.000Z",
-            "updatedAt": "2022-09-13T17:21:06.000Z",
-            "CategoryId": 3,
-            "Category": {
-                "id": 3,
-                "name": "義大利料理",
-                "createdAt": "2022-09-13T17:21:06.000Z",
-                "updatedAt": "2022-09-13T17:21:06.000Z"
-            },
-            "isFavorited": false,
-            "isLiked": false
-        },
-        {
-            "id": 6,
-            "name": "Mrs. Colt Marks",
-            "tel": "812.297.9815 x961",
-            "address": "91277 Ryan Prairie",
-            "opening_hours": "08:00",
-            "description": "Aut est et placeat nihil vel. Ut eum quia. Perspic",
-            "image": "https://loremflickr.com/320/240/restaurant,food/?random=10.97191225778975",
-            "viewCounts": 0,
-            "createdAt": "2022-09-13T17:21:06.000Z",
-            "updatedAt": "2022-09-13T17:21:06.000Z",
-            "CategoryId": 3,
-            "Category": {
-                "id": 3,
-                "name": "義大利料理",
-                "createdAt": "2022-09-13T17:21:06.000Z",
-                "updatedAt": "2022-09-13T17:21:06.000Z"
-            },
-            "isFavorited": false,
-            "isLiked": false
-        },
-        {
-            "id": 7,
-            "name": "Alexa Bernhard",
-            "tel": "(117) 362-8727",
-            "address": "226 Leffler Ramp",
-            "opening_hours": "08:00",
-            "description": "Soluta eligendi voluptatem.",
-            "image": "https://loremflickr.com/320/240/restaurant,food/?random=34.570053145488025",
-            "viewCounts": 0,
-            "createdAt": "2022-09-13T17:21:06.000Z",
-            "updatedAt": "2022-09-13T17:21:06.000Z",
-            "CategoryId": 5,
-            "Category": {
-                "id": 5,
-                "name": "素食料理",
-                "createdAt": "2022-09-13T17:21:06.000Z",
-                "updatedAt": "2022-09-13T17:21:06.000Z"
-            },
-            "isFavorited": false,
-            "isLiked": false
-        },
-        {
-            "id": 8,
-            "name": "Oda Littel",
-            "tel": "273-715-6682 x539",
-            "address": "88018 Jammie Falls",
-            "opening_hours": "08:00",
-            "description": "nesciunt et aut",
-            "image": "https://loremflickr.com/320/240/restaurant,food/?random=64.17149410297085",
-            "viewCounts": 0,
-            "createdAt": "2022-09-13T17:21:06.000Z",
-            "updatedAt": "2022-09-13T17:21:06.000Z",
-            "CategoryId": 5,
-            "Category": {
-                "id": 5,
-                "name": "素食料理",
-                "createdAt": "2022-09-13T17:21:06.000Z",
-                "updatedAt": "2022-09-13T17:21:06.000Z"
-            },
-            "isFavorited": false,
-            "isLiked": false
-        },
-        {
-            "id": 9,
-            "name": "Anabelle Mosciski",
-            "tel": "158.938.2987 x0626",
-            "address": "0596 Nicolas Squares",
-            "opening_hours": "08:00",
-            "description": "atque",
-            "image": "https://loremflickr.com/320/240/restaurant,food/?random=92.85128845640325",
-            "viewCounts": 0,
-            "createdAt": "2022-09-13T17:21:06.000Z",
-            "updatedAt": "2022-09-13T17:21:06.000Z",
-            "CategoryId": 5,
-            "Category": {
-                "id": 5,
-                "name": "素食料理",
-                "createdAt": "2022-09-13T17:21:06.000Z",
-                "updatedAt": "2022-09-13T17:21:06.000Z"
-            },
-            "isFavorited": false,
-            "isLiked": false
-        },
-        {
-            "id": 10,
-            "name": "Maia Abbott",
-            "tel": "618-603-9356 x7344",
-            "address": "5999 Lockman Radial",
-            "opening_hours": "08:00",
-            "description": "Voluptatem quia aliquam occaecati praesentium nece",
-            "image": "https://loremflickr.com/320/240/restaurant,food/?random=9.512760150901212",
-            "viewCounts": 0,
-            "createdAt": "2022-09-13T17:21:06.000Z",
-            "updatedAt": "2022-09-13T17:21:06.000Z",
-            "CategoryId": 4,
-            "Category": {
-                "id": 4,
-                "name": "墨西哥料理",
-                "createdAt": "2022-09-13T17:21:06.000Z",
-                "updatedAt": "2022-09-13T17:21:06.000Z"
-            },
-            "isFavorited": false,
-            "isLiked": false
-        }
-    ],
-    "categories": [
-        {
-            "id": 1,
-            "name": "中式料理",
-            "createdAt": "2022-09-13T17:21:06.000Z",
-            "updatedAt": "2022-09-13T17:21:06.000Z"
-        },
-        {
-            "id": 2,
-            "name": "日本料理",
-            "createdAt": "2022-09-13T17:21:06.000Z",
-            "updatedAt": "2022-09-13T17:21:06.000Z"
-        },
-        {
-            "id": 3,
-            "name": "義大利料理",
-            "createdAt": "2022-09-13T17:21:06.000Z",
-            "updatedAt": "2022-09-13T17:21:06.000Z"
-        },
-        {
-            "id": 4,
-            "name": "墨西哥料理",
-            "createdAt": "2022-09-13T17:21:06.000Z",
-            "updatedAt": "2022-09-13T17:21:06.000Z"
-        },
-        {
-            "id": 5,
-            "name": "素食料理",
-            "createdAt": "2022-09-13T17:21:06.000Z",
-            "updatedAt": "2022-09-13T17:21:06.000Z"
-        },
-        {
-            "id": 6,
-            "name": "美式料理",
-            "createdAt": "2022-09-13T17:21:06.000Z",
-            "updatedAt": "2022-09-13T17:21:06.000Z"
-        },
-        {
-            "id": 7,
-            "name": "複合式料理",
-            "createdAt": "2022-09-13T17:21:06.000Z",
-            "updatedAt": "2022-09-13T17:21:06.000Z"
-        }
-    ],
-    "categoryId": "",
-    "page": 1,
-    "totalPage": [
-        1,
-        2,
-        3,
-        4,
-        5
-    ],
-    "prev": 1,
-    "next": 2
-}
 
 export default {
   components: {
@@ -324,21 +57,51 @@ export default {
   },
   // created階段觸發函式
    created(){
-    this.fetchRestaurants()
+    const { page = '', categoryId = '' } = this.$route.query
+    this.fetchRestaurants({ queryPage: page, queryCategoryId: categoryId })
+  },
+   beforeRouteUpdate (to, from, next) {
+    //先設空值以確保沒有資料時會自動帶入全部資料
+    const { page = '', categoryId = '' } = to.query
+    this.fetchRestaurants({ queryPage: page, queryCategoryId: categoryId })
+    next()
   },
   //dummyData內容放進Vue元件的函式
   methods: {
-    fetchRestaurants () {
-      const { restaurants, categories, categoryId, page, totalPage, prev, next } = dummyData //解構賦值
-      this.restaurants = restaurants
-      this.categories = categories
-      this.categoryId = categoryId
-      this.currentPage = page
-      this.totalPage = totalPage
-      this.previousPage = prev
-      this.nextPage = next
-    }
+    async fetchRestaurants ({ queryPage, queryCategoryId }) {
+      try {
+        const response = await restaurantsAPI.getRestaurants({
+          page: queryPage,
+          categoryId: queryCategoryId
+        })
 
+        // STEP 2：透過解構賦值，將所需要的資料從 response.data 取出
+        const {
+          restaurants,
+          categories,
+          categoryId,
+          page,
+          totalPage,
+          prev,
+          next
+        } = response.data
+
+        // STEP 3：將從伺服器取得的 data 帶入 Vue 內
+        this.restaurants = restaurants
+        this.categories = categories
+        this.categoryId = categoryId
+        this.currentPage = page
+        this.totalPage = totalPage
+        this.previousPage = prev
+        this.nextPage = next
+
+      } catch (error) {
+        Toast.fire({
+          icon: 'error',
+          title: '無法取得餐廳資料，請稍後再試'
+        })
+    }
+  }
   }
 }
 </script>
