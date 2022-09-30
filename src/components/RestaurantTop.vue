@@ -1,9 +1,6 @@
 <template>
   <div class="container py-5">
     <NavTabs />
-    <h1 class="mt-5">
-      人氣餐廳
-    </h1>
 
     <hr>
     <div
@@ -11,7 +8,8 @@
       class="card mb-3"
       style="max-width: 540px;margin: auto;"
     >
-      <div class="row no-gutters">
+      <div class="row no-gutters"
+       :key="restaurant.id">
         <div class="col-md-4">
           <a href="#">
             <img
@@ -38,7 +36,7 @@
               v-if="restaurant.isFavorited"
               type="button"
               class="btn btn-danger mr-2"
-              @click.stop.prevent="deleteFavorite"
+              @click.stop.prevent="deleteFavorite(restaurant.id)"
             >
               移除最愛
             </button>
@@ -46,7 +44,7 @@
               v-else
               type="button"
               class="btn btn-primary"
-              @click.stop.prevent="addFavorite"
+              @click.stop.prevent="addFavorite(restaurant.id)"
             >
               加到最愛
             </button>
@@ -58,6 +56,10 @@
 </template>
 
 <script>
+import usersAPI from "./../apis/users";
+import { Toast } from "./../utils/helpers";
+
+
 
 export default {
   //mixins: [emptyImageFilter],
@@ -74,17 +76,48 @@ export default {
     };
   },
   methods: {
-    addFavorite() {
-      this.restaurant = {
-        ...this.restaurant, //保留餐廳內原有資料
-        isFavorited: true,
-      };
+    async addFavorite(restaurantId) {
+      try {
+        // STEP 3: 用users.js寫好的addFavorite呼叫API，取得回傳內容data解構賦值
+        const { data } = await usersAPI.addFavorite({ restaurantId });
+        // STEP 4: 請求過程有錯，進到錯誤處理
+        if (data.status === "error") {
+          throw new Error(data.message);
+        }
+        // STEP 5: 請求成功的話，改變 Vue 內的資料狀態
+        this.restaurant = {
+          ...this.restaurant,
+          FavoriteCount: this.restaurant.FavoriteCount + 1,
+          isFavorited: true,
+        };
+          } catch (error) {
+        // STEP 6: 請求失敗的話則跳出錯誤提示
+        Toast.fire({
+          icon: "error",
+          title: "無法將餐廳加入最愛，請稍後再試",
+        });
+        console.log("error", error);
+      }
     },
-    deleteFavorite() {
-      this.restaurant = {
-        ...this.restaurant, //保留餐廳內原有資料
-        isFavorited: false,
-      };
+    async deleteFavorite(restaurantId) {
+      try {
+        const { data } = await usersAPI.deleteFavorite({ restaurantId });
+
+        if (data.status === "error") {
+          throw new Error(data.message);
+        }
+        this.restaurant = {
+          ...this.restaurant,
+          FavoriteCount: this.restaurant.FavoriteCount - 1,
+          isFavorited: false, 
+        };
+      } catch (error) {
+        Toast.fire({
+          icon: "error",
+          title: "無法將餐廳移除最愛，請稍後再試",
+        });
+        console.log("error", error);
+      }
     },
   },
 }
