@@ -44,27 +44,11 @@
 </template>
 <script>
 import { emptyImageFilter } from './../utils/mixins'
-const dummyData = {
-  restaurant: {
-    id: 2,
-    name: 'Mrs. Mckenzie Johnston',
-    tel: '567-714-6131 x621',
-    address: '61371 Rosalinda Knoll',
-    opening_hours: '08:00',
-    description:
-      'Quia pariatur perferendis architecto tenetur omnis pariatur tempore.',
-    image: 'https://loremflickr.com/320/240/food,dessert,restaurant/?random=2',
-    createdAt: '2019-06-22T09:00:43.000Z',
-    updatedAt: '2019-06-22T09:00:43.000Z',
-    CategoryId: 3,
-    Category: {
-      id: 3,
-      name: '義大利料理',
-      createdAt: '2019-06-22T09:00:43.000Z',
-      updatedAt: '2019-06-22T09:00:43.000Z'
-    }
-  }
-}
+// STEP 1: 載入 adminAPI 和 Toast
+import adminAPI from "./../apis/admin";
+import { Toast } from "./../utils/helpers";
+
+
 export default {
   name: 'AdminRestaurant',
   mixins: [emptyImageFilter],
@@ -86,22 +70,49 @@ export default {
     const { id: restaurantId } = this.$route.params
     this.fetchRestaurant(restaurantId)
   },
+   beforeRouteUpdate (to, from, next) {
+    // 路由改變時重新抓取資料
+    const { id } = to.params
+    this.fetchRestaurant(id)
+    next() //使路由繼續進行
+  },
   methods: {
-    //eslint-disable-next-line
-    fetchRestaurant (restaurantId) {
-      const { restaurant } = dummyData
-      this.restaurant = {
-        ...this.restaurant,
-        id: restaurant.id,
-        name: restaurant.name,
-        categoryName: restaurant.Category.name,
-        image: restaurant.image,
-        openingHours: restaurant.opening_hours,
-        tel: restaurant.tel,
-        address: restaurant.address,
-        description: restaurant.description
+    //get原本的餐廳資料來編輯
+    async fetchRestaurant(restaurantId) {
+      try {
+        const { data } = await adminAPI.restaurants.getDetail({ restaurantId });
+        // STEP 3: 透過解構賦值將需要的資料取出
+        const {
+          id,
+          name,
+          tel,
+          address,
+          opening_hours: openingHours,
+          description,
+          image,
+          CategoryId: categoryId,
+        } = data.restaurant;
+        // STEP 4: 將資料帶入 Vue 內
+        this.restaurant = {
+          ...this.restaurant,
+          id,
+          name,
+          tel,
+          address,
+          openingHours,
+          description,
+          image,
+          categoryId,
+        };
+      } catch (error) {
+        console.log(error);
+        //  STEP 5: 錯誤處理
+        Toast.fire({
+          icon: "error",
+          title: "無法取得餐廳資料，請稍後再試",
+        });
       }
-    }
+    },
   }
 }
 </script>

@@ -134,17 +134,19 @@ export default {
   data() {
     return {
       restaurant: {
-        name: "",
-        categoryId: "",
-        tel: "",
-        address: "",
-        description: "",
-        image: "",
-        openingHours: "",
+       ...this.initialRestaurant
       },
       categories: [],
       isLoading: true,
     };
+  },
+    watch: {
+    initialRestaurant (newValue) {
+      this.restaurant = {
+        ...this.restaurant,
+        ...newValue
+      }
+    }
   },
   created() {
     this.fetchCategories(); //取類別
