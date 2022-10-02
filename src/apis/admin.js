@@ -5,12 +5,26 @@ export default {
   //後台路由會處理到categories、restaurants、users不同資料，用categories: {}，規劃出命名空間
   categories: {
     //餐廳API資料帶進formEdit，讓使用者編輯
-    
     get() {
       return apiHelper.get('/admin/categories', {
         headers: { Authorization: `Bearer ${getToken()}` }
       })
-    }
+    },
+    create({ name }) {//POST請求
+      return apiHelper.post('/admin/categories', { name }, {
+        headers: { Authorization: `Bearer ${getToken()}` }
+      })
+    },
+    delete({ categoryId }) {
+      return apiHelper.delete(`/admin/categories/${categoryId}`, {
+        headers: { Authorization: `Bearer ${getToken()}` }
+      })
+    },
+    update({ categoryId, name }) {
+      return apiHelper.put(`/admin/categories/${categoryId}`, { categoryId, name }, {
+        headers: { Authorization: `Bearer ${getToken()}` }
+      })
+    },
   },
   restaurants: {
     getDetail({ restaurantId }) {
