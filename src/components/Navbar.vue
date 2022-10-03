@@ -41,45 +41,44 @@
 </template>
 
 <script>
-// 模擬後端假資料呈現登入狀態
-const dummyUser = {
-  currentUser: {
-    id: 1,
-    name: "管理者",
-    email: "root@example.com",
-    image: "https://i.pravatar.cc/300",
-    isAdmin: true,
-  },
-  isAuthenticated: true,
-};
+import { mapState } from 'vuex'
+// Step1：移除 dummyUser
+// 模擬後端假資料呈現登入狀態(原有dummyData當currentUser)
 
 export default {
+  // Step2：移除 data 屬性
+  // Step3：移除 created 和 fetchUser 的方法
+  
+  // Step4：新增 `mapState` 方法
+  computed: {
+    ...mapState(['currentUser', 'isAuthenticated'])
+  },
   // Vue 會在沒有資料時使用此預設值(未登入)
-  data() {
-    return {
-      currentUser: {
-        id: -1,
-        name: "",
-        email: "",
-        image: "",
-        isAdmin: false,
-      },
-      isAuthenticated: false,
-    };
-  },
+  //data() {
+  //  return {
+  //   currentUser: {
+  //      id: -1,
+  //      name: "",
+  //      email: "",
+  //      image: "",
+  //      isAdmin: false,
+  //    },
+  //    isAuthenticated: false,
+  //  };
+  //},
   //生命週期觸發改變登入登出狀態
-  created() {
-    this.fetchUser();
-  },
-  methods: {
-    fetchUser() {
-      this.currentUser = {
-        ...this.currentUser,
-        ...dummyUser.currentUser,
+  //created() {
+  //  this.fetchUser();
+  //},
+  //methods: {
+  // fetchUser() {
+  //   this.currentUser = {
+  //      ...this.currentUser,
+  //      ...dummyUser.currentUser,
         //key值相同，後面覆蓋前面
-      };
-      this.isAuthenticated = dummyUser.isAuthenticated;
-    },
-  },
+  //   };
+  //    this.isAuthenticated = dummyUser.isAuthenticated;
+  //  },
+  //},
 };
 </script>

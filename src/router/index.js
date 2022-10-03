@@ -3,10 +3,11 @@ import VueRouter from 'vue-router'
 import NotFound from '../views/NotFound.vue'
 import SignIn from '../views/SignIn.vue'
 import Restaurants from '../views/Restaurants.vue'
+import store from './../store'
 
 Vue.use(VueRouter)
 
-const routes = [
+const routes = [ 
   {//根目錄主頁為餐廳列表
     path: '/',
     name: 'root',
@@ -109,6 +110,18 @@ const routes = [
 const router = new VueRouter({
   linkExactActiveClass: 'active',
   routes
+})
+
+
+// 同beforeRouteUpdate，只要 route有改變，就可以產出 to, from 物件
+// 這裡不用取 to, from的值
+// 是每次 route改變時，就可以用dispatch()方式，去指派action裡 fetchCurrentUser
+// 在fetchCurrentUser裡串接getCurrentUser api， response.data裡會有 user資訊
+// 再用commit方法，調用mutations裡的'setCurrentUser'，改變state預設user資訊
+router.beforeEach((to, from, next) => {
+  // 使用 dispatch 呼叫 Vuex 內的 actions
+  store.dispatch('fetchCurrentUser')
+  next()
 })
 
 export default router

@@ -32,6 +32,16 @@ export default {
       headers: { Authorization: `Bearer ${getToken()}` }
     })
   },
+  getCurrentUser() { //維持登入狀態取使用者資訊(驗證token)
+    return apiHelper.get(`/get_current_user`, {
+      headers: { Authorization: `Bearer ${getToken()}` }
+    })
+  },
+  get({ userId }) { //知道使用者id獲取完整user profile
+    return apiHelper.get(`/users/${userId}`, {
+      headers: { Authorization: `Bearer ${getToken()}` }
+    })
+  },
   
   getTopUsers() {
     return apiHelper.get('/users/top', {

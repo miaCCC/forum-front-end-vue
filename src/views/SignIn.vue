@@ -86,6 +86,7 @@ export default {
           email: this.email,
           password: this.password,
         });
+        console.log(response)
         // 取得 API 請求後的資料
         const { data } = response;
         if (data.status === "error") {
@@ -93,6 +94,12 @@ export default {
         }
         // 將 token 存放在 localStorage 內
         localStorage.setItem("token", data.token);
+        //Vuex: 將資料傳入Vuex的mutation，並傳入data.user
+        this.$store.commit(
+          'setCurrentUser',
+           data.user
+           )
+           console.log(data.user)
         // 成功登入後轉址到餐廳首頁
         this.$router.push("/restaurants");
       } catch (error) {

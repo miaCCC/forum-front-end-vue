@@ -1,10 +1,8 @@
 <template>
-  <div class="container py-5">
-    <NavTabs />
-
+  <div>
     <hr>
     <div
-      
+
       class="card mb-3"
       style="max-width: 540px;margin: auto;"
     >
@@ -27,10 +25,10 @@
             <p class="card-text">
               {{restaurant.description}}
             </p>
-            <a
-              href="#"
+            <router-link
+              :to="{name: 'restaurant', params: {id: restaurant.id } }"
               class="btn btn-primary mr-2"
-            >Show</a>
+            >Show</router-link>
 
             <button
               v-if="restaurant.isFavorited"
@@ -56,16 +54,18 @@
 </template>
 
 <script>
+
 import usersAPI from "./../apis/users";
 import { Toast } from "./../utils/helpers";
 
 
 
 export default {
+
   //mixins: [emptyImageFilter],
   props: {
     initialRestaurant: {
-      type: Array,
+      type: Object,
       required: true,
     }
   },

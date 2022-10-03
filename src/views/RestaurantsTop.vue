@@ -38,7 +38,7 @@ export default {
         // STEP 2：透過解構賦值，將所需要的資料從 response.data 取出
         const { data } = await restaurantsAPI.getTopRestaurants();
         this.restaurants = data.restaurants;
-        console.log( { data } )
+        console.log( this.restaurants )
           } catch (error) {
             Toast.fire({
               icon: "error",
